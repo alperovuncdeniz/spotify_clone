@@ -6,6 +6,7 @@ import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/config/assets/app_images.dart';
 import 'package:spotify_clone/core/config/assets/app_vectors.dart';
 import 'package:spotify_clone/core/config/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signin.dart';
 import 'package:spotify_clone/presentation/auth/pages/signup.dart';
 
 class SingupOrSigininPage extends StatelessWidget {
@@ -81,7 +82,14 @@ class SingupOrSigininPage extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SigninPage(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "Sing in",
                           style: TextStyle(
