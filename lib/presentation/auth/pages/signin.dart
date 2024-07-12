@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/config/assets/app_vectors.dart';
+import 'package:spotify_clone/core/config/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup.dart';
 
 class SigninPage extends StatelessWidget {
   const SigninPage({super.key});
@@ -16,7 +18,15 @@ class SigninPage extends StatelessWidget {
           context,
           "Not A Member?",
           "Register Now",
-          () {},
+          const Color(0xff288CE9),
+          () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SignupPage(),
+              ),
+            );
+          },
         ),
       ),
       appBar: BasicAppbar(
@@ -37,6 +47,7 @@ class SigninPage extends StatelessWidget {
               context,
               "If You Need Any Support",
               "Click Here",
+              AppColors.primary,
               () {},
             ),
             const SizedBox(height: 38),
@@ -86,7 +97,7 @@ class SigninPage extends StatelessWidget {
   }
 
   Widget _signupText(BuildContext context, String textTitle, String buttonTitle,
-      VoidCallback onPressed) {
+      Color textColor, VoidCallback onPressed) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -106,6 +117,9 @@ class SigninPage extends StatelessWidget {
           ),
           child: Text(
             buttonTitle,
+            style: TextStyle(
+              color: textColor,
+            ),
           ),
         ),
       ],

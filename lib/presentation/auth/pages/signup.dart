@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/config/assets/app_vectors.dart';
+import 'package:spotify_clone/core/config/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/auth/pages/signin.dart';
 
 class SignupPage extends StatelessWidget {
@@ -17,8 +18,9 @@ class SignupPage extends StatelessWidget {
           context,
           "Do you have an account?",
           "Sign In",
+          const Color(0xff288CE9),
           () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => const SigninPage(),
@@ -45,6 +47,7 @@ class SignupPage extends StatelessWidget {
               context,
               "If You Need Any Support",
               "Click Here",
+              AppColors.primary,
               () {},
             ),
             const SizedBox(height: 26),
@@ -106,7 +109,7 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _signinText(BuildContext context, String textTitle, String buttonTitle,
-      VoidCallback onPressed) {
+      Color textColor, VoidCallback onPressed) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -126,6 +129,9 @@ class SignupPage extends StatelessWidget {
           ),
           child: Text(
             buttonTitle,
+            style: TextStyle(
+              color: textColor,
+            ),
           ),
         ),
       ],
