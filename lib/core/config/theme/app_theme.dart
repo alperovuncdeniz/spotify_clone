@@ -7,29 +7,32 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
     fontFamily: 'Satoshi',
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white),
-      bodySmall: TextStyle(color: Colors.white),
-      labelSmall: TextStyle(color: Colors.white),
-      labelMedium: TextStyle(color: Colors.white),
-      labelLarge: TextStyle(color: Colors.white),
-      displayLarge: TextStyle(color: Colors.white),
-      displayMedium: TextStyle(color: Colors.white),
-      displaySmall: TextStyle(color: Colors.white),
-      headlineLarge: TextStyle(color: Colors.white),
-      headlineMedium: TextStyle(color: Colors.white),
-      headlineSmall: TextStyle(color: Colors.white),
-      titleLarge: TextStyle(color: Colors.white),
-      titleMedium: TextStyle(color: Colors.white),
-      titleSmall: TextStyle(color: Colors.white),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.transparent,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.white,
+          width: 0.4,
+        ),
+      ),
+      contentPadding: const EdgeInsets.all(30),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.black,
+          width: 0.4,
+        ),
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
+          elevation: 0,
           textStyle: const TextStyle(
             color: Color(0x00FFFFFF),
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
           shape: RoundedRectangleBorder(
@@ -43,11 +46,31 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark,
     fontFamily: 'Satoshi',
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.transparent,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.white,
+          width: 0.4,
+        ),
+      ),
+      contentPadding: const EdgeInsets.all(30),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.white,
+          width: 0.4,
+        ),
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
+          elevation: 0,
           textStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
           shape: RoundedRectangleBorder(
