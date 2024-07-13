@@ -4,10 +4,16 @@ import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/config/assets/app_vectors.dart';
 import 'package:spotify_clone/core/config/theme/app_colors.dart';
+import 'package:spotify_clone/data/models/auth/signin_user_req.dart';
+import 'package:spotify_clone/domain/usecases/auth/signin.dart';
 import 'package:spotify_clone/presentation/auth/pages/signup.dart';
+import 'package:spotify_clone/presentation/root/pages/root.dart';
+import 'package:spotify_clone/service_locator.dart';
 
 class SigninPage extends StatelessWidget {
-  const SigninPage({super.key});
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  SigninPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class SigninPage extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const SignupPage(),
+                builder: (context) => SignupPage(),
               ),
             );
           },
@@ -36,30 +42,57 @@ class SigninPage extends StatelessWidget {
           width: 40,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _registerText(),
-            const SizedBox(height: 22),
-            _signupText(
-              context,
-              "If You Need Any Support",
-              "Click Here",
-              AppColors.primary,
-              () {},
-            ),
-            const SizedBox(height: 38),
-            _emailField(context),
-            const SizedBox(height: 16),
-            _passwordField(context),
-            const SizedBox(height: 33),
-            BasicAppButton(
-              onPressed: () {},
-              title: "Sign In",
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _registerText(),
+              const SizedBox(height: 22),
+              _signupText(
+                context,
+                "If You Need Any Support",
+                "Click Here",
+                AppColors.primary,
+                () {},
+              ),
+              const SizedBox(height: 38),
+              _emailField(context),
+              const SizedBox(height: 16),
+              _passwordField(context),
+              const SizedBox(height: 33),
+              BasicAppButton(
+                onPressed: () async {
+                  var result = await sl<SigninUseCase>().call(
+                    params: SigninUserReq(
+                      email: _emailController.text.toString(),
+                      password: _passwordController.text.toString(),
+                    ),
+                  );
+                  result.fold(
+                    (l) {
+                      var snackbar = SnackBar(
+                        content: Text(l),
+                        behavior: SnackBarBehavior.floating,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    },
+                    (r) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RootPage(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                  );
+                },
+                title: "Sign In",
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -78,6 +111,7 @@ class SigninPage extends StatelessWidget {
 
   Widget _emailField(BuildContext context) {
     return TextField(
+      controller: _emailController,
       decoration: const InputDecoration(
         hintText: "Enter Username or Email",
       ).applyDefaults(
@@ -88,6 +122,7 @@ class SigninPage extends StatelessWidget {
 
   Widget _passwordField(BuildContext context) {
     return TextField(
+      controller: _passwordController,
       decoration: const InputDecoration(
         hintText: "Password",
       ).applyDefaults(
