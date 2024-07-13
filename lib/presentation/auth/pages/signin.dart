@@ -43,56 +43,54 @@ class SigninPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _registerText(),
-              const SizedBox(height: 22),
-              _signupText(
-                context,
-                "If You Need Any Support",
-                "Click Here",
-                AppColors.primary,
-                () {},
-              ),
-              const SizedBox(height: 38),
-              _emailField(context),
-              const SizedBox(height: 16),
-              _passwordField(context),
-              const SizedBox(height: 33),
-              BasicAppButton(
-                onPressed: () async {
-                  var result = await sl<SigninUseCase>().call(
-                    params: SigninUserReq(
-                      email: _emailController.text.toString(),
-                      password: _passwordController.text.toString(),
-                    ),
-                  );
-                  result.fold(
-                    (l) {
-                      var snackbar = SnackBar(
-                        content: Text(l),
-                        behavior: SnackBarBehavior.floating,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                    },
-                    (r) {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RootPage(),
-                        ),
-                        (route) => false,
-                      );
-                    },
-                  );
-                },
-                title: "Sign In",
-              ),
-            ],
-          ),
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _registerText(),
+            const SizedBox(height: 22),
+            _signupText(
+              context,
+              "If You Need Any Support",
+              "Click Here",
+              AppColors.primary,
+              () {},
+            ),
+            const SizedBox(height: 38),
+            _emailField(context),
+            const SizedBox(height: 16),
+            _passwordField(context),
+            const SizedBox(height: 33),
+            BasicAppButton(
+              onPressed: () async {
+                var result = await sl<SigninUseCase>().call(
+                  params: SigninUserReq(
+                    email: _emailController.text.toString(),
+                    password: _passwordController.text.toString(),
+                  ),
+                );
+                result.fold(
+                  (l) {
+                    var snackbar = SnackBar(
+                      content: Text(l),
+                      behavior: SnackBarBehavior.floating,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  },
+                  (r) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RootPage(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                );
+              },
+              title: "Sign In",
+            ),
+          ],
         ),
       ),
     );

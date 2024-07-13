@@ -45,59 +45,57 @@ class SignupPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _registerText(),
-              const SizedBox(height: 15),
-              _signinText(
-                context,
-                "If You Need Any Support",
-                "Click Here",
-                AppColors.primary,
-                () {},
-              ),
-              const SizedBox(height: 26),
-              _fullNameField(context),
-              const SizedBox(height: 16),
-              _emailField(context),
-              const SizedBox(height: 16),
-              _passwordField(context),
-              const SizedBox(height: 33),
-              BasicAppButton(
-                onPressed: () async {
-                  var result = await sl<SignupUseCase>().call(
-                    params: CreateUserReq(
-                      fullName: _fullNameController.text.toString(),
-                      email: _emailController.text.toString(),
-                      password: _passwordController.text.toString(),
-                    ),
-                  );
-                  result.fold(
-                    (l) {
-                      var snackbar = SnackBar(
-                        content: Text(l),
-                        behavior: SnackBarBehavior.floating,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                    },
-                    (r) {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RootPage(),
-                        ),
-                        (route) => false,
-                      );
-                    },
-                  );
-                },
-                title: "Create Account",
-              ),
-            ],
-          ),
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _registerText(),
+            const SizedBox(height: 15),
+            _signinText(
+              context,
+              "If You Need Any Support",
+              "Click Here",
+              AppColors.primary,
+              () {},
+            ),
+            const SizedBox(height: 26),
+            _fullNameField(context),
+            const SizedBox(height: 16),
+            _emailField(context),
+            const SizedBox(height: 16),
+            _passwordField(context),
+            const SizedBox(height: 33),
+            BasicAppButton(
+              onPressed: () async {
+                var result = await sl<SignupUseCase>().call(
+                  params: CreateUserReq(
+                    fullName: _fullNameController.text.toString(),
+                    email: _emailController.text.toString(),
+                    password: _passwordController.text.toString(),
+                  ),
+                );
+                result.fold(
+                  (l) {
+                    var snackbar = SnackBar(
+                      content: Text(l),
+                      behavior: SnackBarBehavior.floating,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  },
+                  (r) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RootPage(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                );
+              },
+              title: "Create Account",
+            ),
+          ],
         ),
       ),
     );
