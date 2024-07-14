@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_clone/core/config/constants/app_urls.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
 import 'package:spotify_clone/presentation/home/bloc/news_songs_cubit.dart';
 import 'package:spotify_clone/presentation/home/bloc/news_songs_state.dart';
@@ -35,11 +36,27 @@ class NewsSongs extends StatelessWidget {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-        return Column(
-          children: [],
+        return SizedBox(
+          width: 160,
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          "${AppUrls.firestorage}${songs[index].artist} - ${songs[index].title}.jpg?${AppUrls.mediaAlt}",
+                        ),
+                      )),
+                ),
+              )
+            ],
+          ),
         );
       },
-      separatorBuilder: (context, index) => SizedBox(width: 14),
+      separatorBuilder: (context, index) => const SizedBox(width: 14),
       itemCount: songs.length,
     );
   }
