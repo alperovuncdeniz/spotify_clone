@@ -57,7 +57,6 @@ class _HomePageState extends State<HomePage>
                 ],
               ),
             ),
-            const SizedBox(height: 40),
             const PlayList(),
           ],
         ),
@@ -100,7 +99,7 @@ class _HomePageState extends State<HomePage>
       dividerColor: Colors.transparent,
       labelColor: context.isDarkMode ? Colors.white : Colors.black,
       indicatorColor: AppColors.primary,
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 40),
       tabs: const [
         Text(
           "News",
