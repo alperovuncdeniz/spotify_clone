@@ -64,9 +64,9 @@ class PlayList extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   height: 45,
@@ -88,20 +88,23 @@ class PlayList extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      songs[index].title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    SizedBox(
+                      width: 190,
+                      child: Text(
+                        songs[index].title,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Container(
-                      width: 155,
+                    SizedBox(
+                      width: 190,
                       child: Text(
                         songs[index].artist,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
                         style: const TextStyle(
                           fontWeight: FontWeight.w100,
                           fontSize: 12,
@@ -110,27 +113,27 @@ class PlayList extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text(
-                      songs[index].duration.toString().replaceAll(".", ":"),
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_rounded,
-                        color: context.isDarkMode
-                            ? AppColors.darkGrey
-                            : const Color(0xffB4B4B4),
-                      ),
-                    ),
-                  ],
-                )
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  songs[index].duration.toString().replaceAll(".", ":"),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.favorite_rounded,
+                    color: context.isDarkMode
+                        ? AppColors.darkGrey
+                        : const Color(0xffB4B4B4),
+                  ),
+                ),
               ],
             )
           ],
