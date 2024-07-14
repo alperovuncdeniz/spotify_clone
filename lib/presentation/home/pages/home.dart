@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify_clone/common/helper/is_dark_mode.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/core/config/assets/app_images.dart';
 import 'package:spotify_clone/core/config/assets/app_vectors.dart';
+import 'package:spotify_clone/core/config/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/home/widgets/news_songs.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,6 +44,18 @@ class _HomePageState extends State<HomePage>
           children: [
             _homeTopCard(),
             _tabs(),
+            SizedBox(
+              height: 260,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  const NewsSongs(),
+                  Container(),
+                  Container(),
+                  Container(),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -78,18 +93,27 @@ class _HomePageState extends State<HomePage>
   Widget _tabs() {
     return TabBar(
       controller: _tabController,
-      tabs: [
+      isScrollable: true,
+      dividerColor: Colors.transparent,
+      labelColor: context.isDarkMode ? Colors.white : Colors.black,
+      indicatorColor: AppColors.primary,
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+      tabs: const [
         Text(
           "News",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
         ),
         Text(
           "Videos",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
         ),
         Text(
           "Artists",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
         ),
         Text(
           "Podcasts",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
         ),
       ],
     );
