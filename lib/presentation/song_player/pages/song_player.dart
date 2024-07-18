@@ -41,10 +41,13 @@ class SongPlayerPage extends StatelessWidget {
           child: Column(
             children: [
               _songCover(context),
-              const SizedBox(height: 20),
+              const SizedBox(height: 17),
               _songDetail(),
-              const SizedBox(height: 30),
-              _songPlayer(context),
+              const SizedBox(height: 52),
+              Padding(
+                padding: EdgeInsets.zero,
+                child: _songPlayer(context),
+              ),
             ],
           ),
         ),
@@ -54,7 +57,7 @@ class SongPlayerPage extends StatelessWidget {
 
   Widget _songCover(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height / 2,
+      height: MediaQuery.of(context).size.height / 2.2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         image: DecorationImage(
@@ -120,20 +123,68 @@ class SongPlayerPage extends StatelessWidget {
         if (state is SongPlayerLoaded) {
           return Column(
             children: [
-              Slider(
-                value: context
-                    .read<SongPlayerCubit>()
-                    .songPosition
-                    .inSeconds
-                    .toDouble(),
-                min: 0.0,
-                max: context
-                    .read<SongPlayerCubit>()
-                    .songDuration
-                    .inSeconds
-                    .toDouble(),
-                onChanged: (value) {},
+              SliderTheme(
+                data: SliderThemeData(
+                  overlayShape: SliderComponentShape.noOverlay,
+                ),
+                child: Slider(
+                  value: context
+                      .read<SongPlayerCubit>()
+                      .songPosition
+                      .inSeconds
+                      .toDouble(),
+                  min: 0.0,
+                  max: context
+                      .read<SongPlayerCubit>()
+                      .songDuration
+                      .inSeconds
+                      .toDouble(),
+                  onChanged: (value) {},
+                ),
               ),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    formatDuration(
+                        context.read<SongPlayerCubit>().songPosition),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff878787),
+                    ),
+                  ),
+                  Text(
+                    formatDuration(
+                        context.read<SongPlayerCubit>().songDuration),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff878787),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  context.read<SongPlayerCubit>().playOrPauseSong();
+                },
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.primary,
+                  ),
+                  child: Icon(
+                    context.read<SongPlayerCubit>().audioPlayer.playing
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                  ),
+                ),
+              )
             ],
           );
         }
@@ -141,5 +192,11 @@ class SongPlayerPage extends StatelessWidget {
         return Container();
       },
     );
+  }
+
+  String formatDuration(Duration duration) {
+    final minutes = duration.inMinutes.remainder(60);
+    final seconds = duration.inSeconds.remainder(60);
+    return "${minutes.toString().padLeft(2, "")}:${seconds.toString().padLeft(2, "0")}";
   }
 }

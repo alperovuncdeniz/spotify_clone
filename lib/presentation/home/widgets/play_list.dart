@@ -144,7 +144,9 @@ class PlayList extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       size: 25,
-                      Icons.favorite_outline_outlined,
+                      songs[index].isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_outline_outlined,
                       color: context.isDarkMode
                           ? AppColors.darkGrey
                           : const Color(0xffB4B4B4),
