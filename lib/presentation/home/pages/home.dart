@@ -94,11 +94,13 @@ class _HomePageState extends State<HomePage>
 
   Widget _tabs() {
     return TabBar(
+      tabAlignment: TabAlignment.start,
       controller: _tabController,
       isScrollable: true,
       dividerColor: Colors.transparent,
       labelColor: context.isDarkMode ? Colors.white : Colors.black,
       indicatorColor: AppColors.primary,
+      indicatorPadding: EdgeInsets.zero,
       padding: const EdgeInsets.symmetric(vertical: 40),
       tabs: const [
         Text(

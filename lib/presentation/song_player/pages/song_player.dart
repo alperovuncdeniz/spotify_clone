@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/core/config/constants/app_urls.dart';
+import 'package:spotify_clone/core/config/theme/app_colors.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
 
 class SongPlayerPage extends StatelessWidget {
@@ -27,28 +28,75 @@ class SongPlayerPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          _songCover(context),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
+        child: Column(
+          children: [
+            _songCover(context),
+            const SizedBox(height: 20),
+            _songDetail(),
+          ],
+        ),
       ),
     );
   }
 
   Widget _songCover(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
-      child: Container(
-        height: MediaQuery.of(context).size.height / 2,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-              "${AppUrls.firestorage}${songEntity.artist} - ${songEntity.title}.jpg?${AppUrls.mediaAlt}",
-            ),
+    return Container(
+      height: MediaQuery.of(context).size.height / 2,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: NetworkImage(
+            "${AppUrls.firestorage}${songEntity.artist} - ${songEntity.title}.jpg?${AppUrls.mediaAlt}",
           ),
         ),
       ),
+    );
+  }
+
+  Widget _songDetail() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 290,
+              child: Text(
+                songEntity.title,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            SizedBox(
+              width: 290,
+              child: Text(
+                songEntity.artist,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.favorite_outline_outlined,
+            size: 35,
+            color: AppColors.darkGrey,
+          ),
+        ),
+      ],
     );
   }
 }

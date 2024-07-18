@@ -139,11 +139,12 @@ class PlayList extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  const SizedBox(width: 30),
+                  const SizedBox(width: 20),
                   IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.favorite_rounded,
+                      size: 25,
+                      Icons.favorite_outline_outlined,
                       color: context.isDarkMode
                           ? AppColors.darkGrey
                           : const Color(0xffB4B4B4),
