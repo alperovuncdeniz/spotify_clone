@@ -15,7 +15,6 @@ class UserModel {
   UserModel.fromJson(Map<String, dynamic> data) {
     fullName = data['name'];
     email = data['email'];
-    imageUrl = data['duration'];
   }
 }
 
@@ -24,6 +23,7 @@ extension UserModelX on UserModel {
     return UserEntity(
       email: email,
       fullName: fullName,
+      imageUrl: imageUrl,
     );
   }
 }
