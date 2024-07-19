@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:spotify_clone/common/helper/is_dark_mode.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/favorite_button/favorite_button.dart';
+import 'package:spotify_clone/core/config/assets/app_vectors.dart';
 import 'package:spotify_clone/core/config/constants/app_urls.dart';
 import 'package:spotify_clone/presentation/profile/bloc/favorite_songs_cubit.dart';
 import 'package:spotify_clone/presentation/profile/bloc/favorite_songs_state.dart';
@@ -45,60 +47,73 @@ class ProfilePage extends StatelessWidget {
               bottomRight: Radius.circular(50),
               bottomLeft: Radius.circular(50),
             )),
-        child: BlocBuilder<ProfileInfoCubit, ProfileInfoState>(
-          builder: (context, state) {
-            if (state is ProfileInfoLoading) {
-              return Container(
-                alignment: Alignment.center,
-                child: const CircularProgressIndicator(),
-              );
-            }
-            if (state is ProfileInfoLoaded) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 90,
-                    width: 90,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          state.userEntity.imageUrl!,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset(
+                AppVectors.profilePattern,
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: BlocBuilder<ProfileInfoCubit, ProfileInfoState>(
+                builder: (context, state) {
+                  if (state is ProfileInfoLoading) {
+                    return Container(
+                      alignment: Alignment.center,
+                      child: const CircularProgressIndicator(),
+                    );
+                  }
+                  if (state is ProfileInfoLoaded) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 90,
+                          width: 90,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                state.userEntity.imageUrl!,
+                              ),
+                            ),
+                          ),
                         ),
+                        const SizedBox(height: 11),
+                        Text(
+                          state.userEntity.email!,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xffD8D4D4),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          state.userEntity.fullName!,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  if (state is ProfileInfoFailure) {
+                    return const Center(
+                      child: Text(
+                        "Please Try Again",
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 11),
-                  Text(
-                    state.userEntity.email!,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffD8D4D4),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    state.userEntity.fullName!,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              );
-            }
-            if (state is ProfileInfoFailure) {
-              return const Center(
-                child: Text(
-                  "Please Try Again",
-                ),
-              );
-            }
-            return Container();
-          },
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
