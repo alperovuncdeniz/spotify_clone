@@ -20,7 +20,7 @@ class SongModel {
     required this.songsId,
   });
 
-  SongModel.fromMap(Map<String, dynamic> data) {
+  SongModel.fromJson(Map<String, dynamic> data) {
     title = data['title'];
     artist = data['artist'];
     duration = data['duration'];

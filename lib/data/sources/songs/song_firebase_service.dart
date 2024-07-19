@@ -25,7 +25,7 @@ class SongFirebaseServiceImpl extends SongFirebaseService {
           .get();
 
       for (var element in data.docs) {
-        var songModel = SongModel.fromMap(element.data());
+        var songModel = SongModel.fromJson(element.data());
         bool isFavorite = await sl<IsFavoriteSongUseCase>()
             .call(params: element.reference.id);
         songModel.isFavorite = isFavorite;
@@ -48,7 +48,7 @@ class SongFirebaseServiceImpl extends SongFirebaseService {
           .get();
 
       for (var element in data.docs) {
-        var songModel = SongModel.fromMap(element.data());
+        var songModel = SongModel.fromJson(element.data());
         bool isFavorite = await sl<IsFavoriteSongUseCase>()
             .call(params: element.reference.id);
         songModel.isFavorite = isFavorite;
