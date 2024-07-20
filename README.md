@@ -2,7 +2,7 @@
 
 * Flutter
 * Firebase
-* Riverpod
+* BloC
 
 ## Getting Started
 
