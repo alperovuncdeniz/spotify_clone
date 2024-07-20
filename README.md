@@ -1,6 +1,8 @@
 # spotify_clone
 
-A new Flutter project.
+* Flutter
+* Firebase
+* Riverpod
 
 ## Getting Started
 
